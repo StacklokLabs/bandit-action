@@ -44,6 +44,9 @@ on:
   pull_request:
     branches: [ main ]
 
+permissions:
+  pull-requests: write
+
 jobs:
   bandit-action:
     runs-on: ubuntu-latest
@@ -63,6 +66,9 @@ jobs:
 name: Bandit Code Scan
 
 on: [push, pull_request]
+
+permissions:
+  pull-requests: write
 
 jobs:
   bandit-action:
@@ -94,13 +100,6 @@ jobs:
         ini_path: .bandit
         exit_zero: false
 ```
-
-## Enable Workflow Permissions
-
-This action requires the need to post an issue to the repository. To enable this,
-you will need to set up the Workflow Permissions under your repository settings.
-
-![alt text](image.png)
 
 ## Contributing
 
