@@ -3,6 +3,7 @@ name: Bandit Code Scan
 on:
   pull_request:
     branches: [ main ]
+
 permissions:
     pull-requests: write
 jobs:
