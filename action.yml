@@ -1,0 +1,100 @@
+name: 'Bandit Code Scan'
+description: 'Run Bandit code scans on your Python codebase'
+inputs:
+  GITHUB_TOKEN:
+    description: 'GitHub token'
+    required: true
+  recursive:
+    description: 'Find and process files in subdirectories'
+    required: false
+    default: 'false'
+  aggregate:
+    description: 'Aggregate output by vulnerability or by filename'
+    required: false
+    default: 'vuln'
+  context_lines:
+    description: 'Maximum number of code lines to output for each issue'
+    required: false
+  config_file:
+    description: 'Optional config file to use'
+    required: false
+  profile:
+    description: 'Profile to use'
+    required: false
+  tests:
+    description: 'Comma-separated list of test IDs to run'
+    required: false
+  skips:
+    description: 'Comma-separated list of test IDs to skip'
+    required: false
+  severity_level:
+    description: 'Report only issues of a given severity level or higher'
+    required: false
+  confidence_level:
+    description: 'Report only issues of a given confidence level or higher'
+    required: false
+  verbose:
+    description: 'Output extra information like excluded and included files'
+    required: false
+    default: 'false'
+  debug:
+    description: 'Turn on debug mode'
+    required: false
+    default: 'false'
+  quiet:
+    description: 'Only show output in the case of an error'
+    required: false
+    default: 'false'
+  ignore_nosec:
+    description: 'Do not skip lines with # nosec comments'
+    required: false
+    default: 'false'
+  exclude_paths:
+    description: 'Comma-separated list of paths to exclude from scan'
+    required: false
+  baseline:
+    description: 'Path of a baseline report to compare against'
+    required: false
+  ini_path:
+    description: 'Path to a .bandit file that supplies command line arguments'
+    required: false
+  path:
+    description: 'Path to scan'
+    required: true
+    default: '.'
+  level:
+    description: 'Report only issues of a given severity level or higher'
+    required: false
+    default: 'low'
+  confidence:
+    description: 'Report only issues of a given confidence level or higher'
+    required: false
+    default: 'low'
+  exit_zero:
+    description: 'Exit with 0, even with results found'
+    required: false
+    default: 'false'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.recursive }}
+    - ${{ inputs.aggregate }}
+    - ${{ inputs.context_lines }}
+    - ${{ inputs.config_file }}
+    - ${{ inputs.profile }}
+    - ${{ inputs.tests }}
+    - ${{ inputs.skips }}
+    - ${{ inputs.severity_level }}
+    - ${{ inputs.confidence_level }}
+    - ${{ inputs.verbose }}
+    - ${{ inputs.debug }}
+    - ${{ inputs.quiet }}
+    - ${{ inputs.ignore_nosec }}
+    - ${{ inputs.exclude_paths }}
+    - ${{ inputs.baseline }}
+    - ${{ inputs.ini_path }}
+    - ${{ inputs.path }}
+    - ${{ inputs.level }}
+    - ${{ inputs.confidence }}
+    - ${{ inputs.exit_zero }}
