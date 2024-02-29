@@ -17,7 +17,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         path: "."
-        aggregate: "file"
         exit_zero: "true"
         recursive: "true"
         skips: B404,B403

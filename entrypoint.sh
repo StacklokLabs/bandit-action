@@ -52,6 +52,7 @@ fi
 [ -n "$INPUT_EXCLUDE_PATHS" ] && cmd+=" -x $INPUT_EXCLUDE_PATHS"
 [ -n "$INPUT_BASELINE" ] && cmd+=" -b $INPUT_BASELINE"
 [ -n "$INPUT_INI_PATH" ] && cmd+=" --ini $INPUT_INI_PATH"
+[ -n "$INPUT_EXIT_ZERO" ] && cmd+=" --exit-zero"
 
 # Specify the output format as JSON and output file
 cmd+=" -f json -o report.json"
@@ -62,17 +63,3 @@ eval $cmd
 
 # Call post_comment.py to post the Bandit report as a comment on the pull request
 GITHUB_TOKEN=$GITHUB_TOKEN GITHUB_REPOSITORY=$GITHUB_REPOSITORY python /post_comment.py
-
-# If specified, exit with 0 even if issues are found
-if [ "${INPUT_EXIT_ZERO}" == "true" ]; then
-    exit 0
-fi
-
-# Check if report.json exists and is not empty
-if [ -s report.json ]; then
-    # If you want to fail the action on detected issues, uncomment the next line
-    # exit 1
-    echo "Bandit scan completed with findings."
-else
-    echo "Bandit scan completed with no findings."
-fi
