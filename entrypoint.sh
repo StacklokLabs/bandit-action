@@ -54,7 +54,7 @@ fi
 [ -n "$INPUT_INI_PATH" ] && cmd+=" --ini $INPUT_INI_PATH"
 [ "$INPUT_EXIT_ZERO" = "true" ] && cmd+=" --exit-zero"
 
-# Specify the output format as JSON and output file, we hardcode the output file to report.json
+# Force the output format as JSON and output file, we json and to report.json
 # as this is required to format the output for the post_comment.py script
 cmd+=" -f json -o report.json"
 
@@ -79,5 +79,3 @@ else
     fi
 fi
 
-# Call post_comment.py to post the Bandit report as a comment on the pull request
-# GITHUB_TOKEN=$GITHUB_TOKEN GITHUB_REPOSITORY=$GITHUB_REPOSITORY python /post_comment.py
