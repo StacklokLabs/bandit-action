@@ -7,35 +7,34 @@ github_repository=$INPUT_GITHUB_REPOSITORY
 
 # Initialize the Bandit command
 cmd="bandit"
-# Check if the recursive flag is set
-if [ -n "${INPUT_RECURSIVE}" ]; then
-    cmd+=" -r"
-fi
+# # Check if the recursive flag is set
+# if [ -n "${INPUT_RECURSIVE}" ]; then
+#     cmd+=" -r"
+# fi
 
-# Check for the path input and add it to the command
-if [ -n "${INPUT_PATH}" ]; then
-    cmd+=" -r ${INPUT_PATH}"
-fi
+# # Check for the path input and add it to the command
+# if [ -n "${INPUT_PATH}" ]; then
+#     cmd+=" -r ${INPUT_PATH}"
+# fi
 
-# Check for the level input and set the severity level
-if [ -n "${INPUT_LEVEL}" ]; then
-    case "${INPUT_LEVEL}" in
-        "low") cmd+=" -l" ;;
-        "medium") cmd+=" -ll" ;;
-        "high") cmd+=" -lll" ;;
-    esac
-fi
+# # Check for the level input and set the severity level
+# if [ -n "${INPUT_LEVEL}" ]; then
+#     case "${INPUT_LEVEL}" in
+#         "low") cmd+=" -l" ;;
+#         "medium") cmd+=" -ll" ;;
+#         "high") cmd+=" -lll" ;;
+#     esac
+# fi
 
-# Check for the confidence input and set the confidence level
-if [ -n "${INPUT_CONFIDENCE}" ]; then
-    case "${INPUT_CONFIDENCE}" in
-        "low") cmd+=" -i" ;;
-        "medium") cmd+=" -ii" ;;
-        "high") cmd+=" -iii" ;;
-    esac
-fi
+# # Check for the confidence input and set the confidence level
+# if [ -n "${INPUT_CONFIDENCE}" ]; then
+#     case "${INPUT_CONFIDENCE}" in
+#         "low") cmd+=" -i" ;;
+#         "medium") cmd+=" -ii" ;;
+#         "high") cmd+=" -iii" ;;
+#     esac
+# fi
 
-# Add arguments to the command based on the input values
 [ "$INPUT_VERBOSE" = "true" ] && cmd+=" -v"
 [ "$INPUT_DEBUG" = "true" ] && cmd+=" -d"
 [ "$INPUT_QUIET" = "true" ] && cmd+=" -q"
