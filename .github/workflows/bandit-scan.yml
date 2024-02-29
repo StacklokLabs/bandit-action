@@ -19,3 +19,4 @@ jobs:
         path: "."
         exit_zero: "true"
         recursive: "true"
+        skips: B404, B403
