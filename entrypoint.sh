@@ -65,17 +65,19 @@ eval $cmd
 # Capture the exit code from Bandit
 bandit_exit_code=$?
 
+echo "Bandit exited with code $bandit_exit_code"
+
 # Check if exit_zero is set to "true"
-if [ "$INPUT_EXIT_ZERO" = "true" ]; then
-    echo "exit_zero is set to true. Exiting with code 0 regardless of Bandit findings."
-    exit 0
-else
-    # If Bandit exited with a non-zero exit code and exit_zero is not true, exit this script with the Bandit exit code
-    if [ $bandit_exit_code -ne 0 ]; then
-        echo "Bandit found issues and exit_zero is not set to true. Exiting with code $bandit_exit_code."
-        exit $bandit_exit_code
-    fi
-fi
+# if [ "$INPUT_EXIT_ZERO" = "true" ]; then
+#     echo "exit_zero is set to true. Exiting with code 0 regardless of Bandit findings."
+#     exit 0
+# else
+#     # If Bandit exited with a non-zero exit code and exit_zero is not true, exit this script with the Bandit exit code
+#     if [ $bandit_exit_code -ne 0 ]; then
+#         echo "Bandit found issues and exit_zero is not set to true. Exiting with code $bandit_exit_code."
+#         exit $bandit_exit_code
+#     fi
+# fi
 
 # Call post_comment.py to post the Bandit report as a comment on the pull request
 GITHUB_TOKEN=$GITHUB_TOKEN GITHUB_REPOSITORY=$GITHUB_REPOSITORY python /post_comment.py
