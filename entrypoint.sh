@@ -54,12 +54,28 @@ fi
 [ -n "$INPUT_INI_PATH" ] && cmd+=" --ini $INPUT_INI_PATH"
 [ -n "$INPUT_EXIT_ZERO" ] && cmd+=" --exit-zero"
 
-# Specify the output format as JSON and output file
+# Specify the output format as JSON and output file, we hardcode the output file to report.json
+# as this is required to format the output for the post_comment.py script
 cmd+=" -f json -o report.json"
 
 # Run the Bandit command
 echo "Executing command: $cmd"
 eval $cmd
 
+# Capture the exit code from Bandit
+bandit_exit_code=$?
+
 # Call post_comment.py to post the Bandit report as a comment on the pull request
 GITHUB_TOKEN=$GITHUB_TOKEN GITHUB_REPOSITORY=$GITHUB_REPOSITORY python /post_comment.py
+
+# Check if exit_zero is set to "true"
+if [ "$INPUT_EXIT_ZERO" = "true" ]; then
+    echo "exit_zero is set to true. Exiting with code 0 regardless of Bandit findings."
+    exit 0
+else
+    # If Bandit exited with a non-zero exit code and exit_zero is not true, exit this script with the Bandit exit code
+    if [ $bandit_exit_code -ne 0 ]; then
+        echo "Bandit found issues and exit_zero is not set to true. Exiting with code $bandit_exit_code."
+        exit $bandit_exit_code
+    fi
+fi
