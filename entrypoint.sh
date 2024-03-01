@@ -8,9 +8,6 @@ github_repository=$INPUT_GITHUB_REPOSITORY
 # Initialize the Bandit command
 cmd="bandit"
 
-# Initialize command variable
-cmd=""
-
 # Ensure INPUT_PATH is set, default to current directory if not
 INPUT_PATH=${INPUT_PATH:-.}
 
