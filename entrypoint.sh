@@ -41,7 +41,7 @@ fi
 [ "$INPUT_QUIET" = "true" ] && cmd+=" -q"
 [ "$INPUT_IGNORE_NOSEC" = "true" ] && cmd+=" --ignore-nosec"
 [ "$INPUT_RECURSIVE" = "true" ] && cmd+=" -r"
-[ -n "$INPUT_PATH"] && cmd+=" -r ${INPUT_PATH}"
+[ -n "$INPUT_PATH" ] && cmd+=" -r $INPUT_PATH"
 [ -n "$INPUT_AGGREGATE" ] && cmd+=" -a $INPUT_AGGREGATE"
 [ -n "$INPUT_CONTEXT_LINES" ] && cmd+=" -n $INPUT_CONTEXT_LINES"
 [ -n "$INPUT_CONFIG_FILE" ] && cmd+=" -c $INPUT_CONFIG_FILE"
