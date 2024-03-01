@@ -18,4 +18,4 @@ jobs:
       with:
         path: "."
         recursive: "true"
-        skips: B506,B602
+
