@@ -8,24 +8,30 @@ github_repository=$INPUT_GITHUB_REPOSITORY
 # Initialize the Bandit command
 cmd="bandit"
 
-# Ensure INPUT_PATH is set, default to current directory if not
+# Ensure INPUT_PATH is set, default to the current directory if not
 INPUT_PATH=${INPUT_PATH:-.}
 
-# Set severity level
-if [ -n "${INPUT_LEVEL}" ]; then
+# Check for the level or severity level
+# Since -l and --severity-level cannot be used together, prioritize --severity-level if both are provided
+if [ -n "${INPUT_SEVERITY_LEVEL}" ]; then
+    cmd+=" --severity-level $INPUT_SEVERITY_LEVEL"
+elif [ -n "${INPUT_LEVEL}" ]; then
     case "${INPUT_LEVEL}" in
         "low") cmd+=" -l" ;;
-        "medium") cmd+=" -m" ;;  # Changed from -ll to -m for medium
-        "high") cmd+=" -h" ;;    # Changed from -lll to -h for high
+        "medium") cmd+=" -ll" ;;
+        "high") cmd+=" -lll" ;;
     esac
 fi
 
-# Set confidence level
-if [ -n "${INPUT_CONFIDENCE}" ]; then
+# Check for the confidence input and set the confidence level
+# Since -i and --confidence-level cannot be used together, prioritize --confidence-level if both are provided
+if [ -n "${INPUT_CONFIDENCE_LEVEL}" ]; then
+    cmd+=" --confidence-level $INPUT_CONFIDENCE_LEVEL"
+elif [ -n "${INPUT_CONFIDENCE}" ]; then
     case "${INPUT_CONFIDENCE}" in
         "low") cmd+=" -i" ;;
-        "medium") cmd+=" -j" ;;  # Assuming -j for medium confidence
-        "high") cmd+=" -k" ;;    # Assuming -k for high confidence
+        "medium") cmd+=" -ii" ;;
+        "high") cmd+=" -iii" ;;
     esac
 fi
 
@@ -33,13 +39,11 @@ fi
 [ "$INPUT_VERBOSE" = "true" ] && cmd+=" -v"
 [ "$INPUT_DEBUG" = "true" ] && cmd+=" -d"
 [ "$INPUT_QUIET" = "true" ] && cmd+=" -q"
-[ "$INPUT_IGNORE_NOSEC" = "true" ] && cmd+=" ---ignore-nosec"
+[ "$INPUT_IGNORE_NOSEC" = "true" ] && cmd+=" --ignore-nosec"
 [ "$INPUT_EXIT_ZERO" = "true" ] && cmd+=" --exit-zero"
 
-# Set INPUT_RECURSIVE with INPUT_PATH. We hardcode -r as it is required for 
-# Bandit to run
-[ "$INPUT_RECURSIVE" = "true" ] &&
-cmd+=" -r $INPUT_PATH"
+# Set INPUT_RECURSIVE with INPUT_PATH. We hardcode -r as it is required for Bandit to run
+[ "$INPUT_RECURSIVE" = "true" ] && cmd+=" -r $INPUT_PATH"
 
 # Other flags with parameters
 [ -n "$INPUT_AGGREGATE" ] && cmd+=" -a $INPUT_AGGREGATE"
@@ -48,10 +52,13 @@ cmd+=" -r $INPUT_PATH"
 [ -n "$INPUT_PROFILE" ] && cmd+=" -p $INPUT_PROFILE"
 [ -n "$INPUT_TESTS" ] && cmd+=" -t $INPUT_TESTS"
 [ -n "$INPUT_SKIPS" ] && cmd+=" -s $INPUT_SKIPS"
-[ -n "$INPUT_SEVERITY_LEVEL" ] && cmd+=" -s $INPUT_SEVERITY_LEVEL"
 [ -n "$INPUT_EXCLUDE_PATHS" ] && cmd+=" -x $INPUT_EXCLUDE_PATHS"
 [ -n "$INPUT_BASELINE" ] && cmd+=" -b $INPUT_BASELINE"
-[ -n "$INPUT_INI_PATH" ] && cmd+=" -ini $INPUT_INI_PATH"
+[ -n "$INPUT_INI_PATH" ] && cmd+=" --ini $INPUT_INI_PATH"
+
+# Echo the final command
+echo "Constructed command: $cmd"
+
 
 # Force the output format as JSON and output file, we json and to report.json
 # as this is required to format the output for the post_comment.py script
