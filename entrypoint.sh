@@ -13,9 +13,18 @@ cmd="bandit"
 # fi
 
 # Check for the path input and add it to the command
-# if [ -n "${INPUT_PATH}" ]; then
-#     cmd+=" -r ${INPUT_PATH}"
-# fi
+if [ -n "${INPUT_PATH}" ]; then
+    cmd+=" -r ${INPUT_PATH}"
+fi
+
+# Check for the level input and set the severity level
+if [ -n "${INPUT_LEVEL}" ]; then
+    case "${INPUT_LEVEL}" in
+        "low") cmd+=" -l" ;;
+        "medium") cmd+=" -ll" ;;
+        "high") cmd+=" -lll" ;;
+    esac
+fi
 
 # Check for the confidence input and set the confidence level
 if [ -n "${INPUT_CONFIDENCE}" ]; then
