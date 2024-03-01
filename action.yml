@@ -30,7 +30,7 @@ inputs:
   severity_level:
     description: 'Report only issues of a given severity level or higher'
     required: false
-  confidence_level:
+  confidence:
     description: 'Report only issues of a given confidence level or higher'
     required: false
   verbose:
@@ -64,10 +64,6 @@ inputs:
     default: '.'
   level:
     description: 'Report only issues of a given severity level or higher'
-    required: false
-    default: 'low'
-  confidence:
-    description: 'Report only issues of a given confidence level or higher'
     required: false
     default: 'low'
   exit_zero:

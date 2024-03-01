@@ -13,28 +13,12 @@ cmd="bandit"
 # fi
 
 # Check for the path input and add it to the command
-if [ -n "${INPUT_PATH}" ]; then
-    cmd+=" -r ${INPUT_PATH}"
-fi
-
-# # Check for the level input and set the severity level
-# if [ -n "${INPUT_LEVEL}" ]; then
-#     case "${INPUT_LEVEL}" in
-#         "low") cmd+=" -l" ;;
-#         "medium") cmd+=" -ll" ;;
-#         "high") cmd+=" -lll" ;;
-#     esac
+# if [ -n "${INPUT_PATH}" ]; then
+#     cmd+=" -r ${INPUT_PATH}"
 # fi
 
-# # Check for the confidence input and set the confidence level
-# if [ -n "${INPUT_CONFIDENCE}" ]; then
-#     case "${INPUT_CONFIDENCE}" in
-#         "low") cmd+=" -i" ;;
-#         "medium") cmd+=" -ii" ;;
-#         "high") cmd+=" -iii" ;;
-#     esac
-# fi
 
+[ "$INPUT_PATH" = "true" ] && cmd+=" -r ${INPUT_PATH}"
 [ "$INPUT_VERBOSE" = "true" ] && cmd+=" -v"
 [ "$INPUT_DEBUG" = "true" ] && cmd+=" -d"
 [ "$INPUT_QUIET" = "true" ] && cmd+=" -q"
@@ -47,7 +31,7 @@ fi
 [ -n "$INPUT_TESTS" ] && cmd+=" -t $INPUT_TESTS"
 [ -n "$INPUT_SKIPS" ] && cmd+=" -s $INPUT_SKIPS"
 [ -n "$INPUT_SEVERITY_LEVEL" ] && cmd+=" --severity-level $INPUT_SEVERITY_LEVEL"
-[ -n "$INPUT_CONFIDENCE_LEVEL" ] && cmd+=" --confidence-level $INPUT_CONFIDENCE_LEVEL"
+[ -n "$INPUT_CONFIDENCE]" ] && cmd+=" --confidence-level $INPUT_CONFIDENCE"
 [ -n "$INPUT_EXCLUDE_PATHS" ] && cmd+=" -x $INPUT_EXCLUDE_PATHS"
 [ -n "$INPUT_BASELINE" ] && cmd+=" -b $INPUT_BASELINE"
 [ -n "$INPUT_INI_PATH" ] && cmd+=" --ini $INPUT_INI_PATH"
