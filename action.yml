@@ -31,7 +31,10 @@ inputs:
     description: 'Report only issues of a given severity level or higher'
     required: false
   confidence:
-    description: 'Report only issues of a given confidence level or higher'
+    description: 'Report only issues of a given confidence level or higher (-i for LOW, -ii for MEDIUM, -iii for HIGH)'
+    required: false
+  confidence_level:
+    description: 'Report only issues of a given confidence level or higher {all,low, medium,high}'
     required: false
   verbose:
     description: 'Output extra information like excluded and included files'
@@ -82,6 +85,7 @@ runs:
     - ${{ inputs.tests }}
     - ${{ inputs.skips }}
     - ${{ inputs.severity_level }}
+    - ${{ inputs.confidence }}
     - ${{ inputs.confidence_level }}
     - ${{ inputs.verbose }}
     - ${{ inputs.debug }}
@@ -92,5 +96,4 @@ runs:
     - ${{ inputs.ini_path }}
     - ${{ inputs.path }}
     - ${{ inputs.level }}
-    - ${{ inputs.confidence }}
     - ${{ inputs.exit_zero }}
