@@ -13,9 +13,9 @@ cmd="bandit"
 # fi
 
 # Check for the path input and add it to the command
-if [ -n "${INPUT_PATH}" ]; then
-    cmd+=" -r ${INPUT_PATH}"
-fi
+# if [ -n "${INPUT_PATH}" ]; then
+#     cmd+=" -r ${INPUT_PATH}"
+# fi
 
 # Check for the level input and set the severity level
 if [ -n "${INPUT_LEVEL}" ]; then
@@ -48,7 +48,6 @@ fi
 [ -n "$INPUT_TESTS" ] && cmd+=" -t $INPUT_TESTS"
 [ -n "$INPUT_SKIPS" ] && cmd+=" -s $INPUT_SKIPS"
 [ -n "$INPUT_SEVERITY_LEVEL" ] && cmd+=" --severity-level $INPUT_SEVERITY_LEVEL"
-# [ -n "$INPUT_CONFIDENCE_LEVEL]" ] && cmd+=" --confidence-level $INPUT_CONFIDENCE_LEVEL"
 [ -n "$INPUT_EXCLUDE_PATHS" ] && cmd+=" -x $INPUT_EXCLUDE_PATHS"
 [ -n "$INPUT_BASELINE" ] && cmd+=" -b $INPUT_BASELINE"
 [ -n "$INPUT_INI_PATH" ] && cmd+=" --ini $INPUT_INI_PATH"
