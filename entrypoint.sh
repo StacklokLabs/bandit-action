@@ -12,10 +12,10 @@ cmd="bandit"
 #     cmd+=" -r"
 # fi
 
-# # Check for the path input and add it to the command
-# if [ -n "${INPUT_PATH}" ]; then
-#     cmd+=" -r ${INPUT_PATH}"
-# fi
+# Check for the path input and add it to the command
+if [ -n "${INPUT_PATH}" ]; then
+    cmd+=" -r ${INPUT_PATH}"
+fi
 
 # # Check for the level input and set the severity level
 # if [ -n "${INPUT_LEVEL}" ]; then
