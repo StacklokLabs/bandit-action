@@ -61,7 +61,7 @@ cmd+=" -f json -o report.json"
 echo "Executing command: $cmd"
 eval $cmd
 
-# Capture the exit code from Bandit
+# Capture the exit code from Bandit to either pass or fail the GitHub Action
 bandit_exit_code=$?
 
 GITHUB_TOKEN=$GITHUB_TOKEN GITHUB_REPOSITORY=$GITHUB_REPOSITORY python /post_comment.py
