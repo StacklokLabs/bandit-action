@@ -18,4 +18,5 @@ jobs:
       with:
         path: "."
         recursive: "true"
+        tests: "B506"
 

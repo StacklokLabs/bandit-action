@@ -59,7 +59,6 @@ fi
 # Echo the final command
 echo "Constructed command: $cmd"
 
-
 # Force the output format as JSON and output file, we json and to report.json
 # as this is required to format the output for the post_comment.py script
 cmd+=" -f json -o report.json"
@@ -71,9 +70,10 @@ eval $cmd
 # Capture the exit code from Bandit to either pass or fail the GitHub Action
 bandit_exit_code=$?
 
+# Post the results to the pull request
 GITHUB_TOKEN=$GITHUB_TOKEN GITHUB_REPOSITORY=$GITHUB_REPOSITORY python /post_comment.py
 
-# Check if exit_zero is set to "true"
+# Check if exit_zero is set to "true", if true, fail the GitHub Action
 if [ "$INPUT_EXIT_ZERO" = "true" ]; then
     echo "exit_zero is set to true. Exiting with code 0 regardless of Bandit findings."
     exit 0
@@ -84,4 +84,3 @@ else
         exit $bandit_exit_code
     fi
 fi
-
