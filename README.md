@@ -6,7 +6,7 @@ codebase.
 
 ## Features
 
-- :gear: Supports full custom Bandit configuration and profile.
+- :gear: Fully configurable with input parameters and support for config files.
 - :speech_balloon: Posts scan results as a comment on pull requests.
 
 ## Inputs
