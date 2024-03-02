@@ -31,6 +31,9 @@ codebase.
 | `ini_path`           | Path to a `.bandit` file that supplies command line args.   |         |
 | `exit_zero`          | Exit with 0 even with results found.     
 
+| :memo:        | We do not expose args for output/format,message_template, as we need to hardcore the report for the PR comment feature|
+|---------------|:----------------------------------------------------------------------------------------------------------------------|
+
 ## Usage
 
 To use the action, add the following to your GitHub workflow file (e.g. `.github/workflows/bandit.yml`:
