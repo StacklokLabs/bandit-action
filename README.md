@@ -1,8 +1,7 @@
 # GitHub Action for Bandit
 
 This GitHub Action runs [Bandit](https://bandit.readthedocs.io/en/latest/), a 
-tool designed to find common security issues in Python code, against a Python 
-codebase.
+tool designed to find common security issues in Python code.
 
 ## Features
 

@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 # Use the INPUT_ prefixed environment variables that are passed by GitHub Actions
 github_token=$INPUT_GITHUB_TOKEN
 github_repository=$INPUT_GITHUB_REPOSITORY
@@ -42,9 +41,6 @@ fi
 [ "$INPUT_IGNORE_NOSEC" = "true" ] && cmd+=" --ignore-nosec"
 [ "$INPUT_EXIT_ZERO" = "true" ] && cmd+=" --exit-zero"
 
-# Set INPUT_RECURSIVE with INPUT_PATH. We hardcode -r as it is required for Bandit to run
-[ "$INPUT_RECURSIVE" = "true" ] && cmd+=" -r $INPUT_PATH"
-
 # Other flags with parameters
 [ -n "$INPUT_AGGREGATE" ] && cmd+=" -a $INPUT_AGGREGATE"
 [ -n "$INPUT_CONTEXT_LINES" ] && cmd+=" -n $INPUT_CONTEXT_LINES"
@@ -56,9 +52,11 @@ fi
 [ -n "$INPUT_BASELINE" ] && cmd+=" -b $INPUT_BASELINE"
 [ -n "$INPUT_INI_PATH" ] && cmd+=" --ini $INPUT_INI_PATH"
 
+# Set INPUT_RECURSIVE with INPUT_PATH. We hardcode -r as it is required for Bandit to run
+[ "$INPUT_RECURSIVE" = "true" ] && cmd+=" -r $INPUT_PATH"
+
 # Echo the final command
 echo "Constructed command: $cmd"
-
 
 # Force the output format as JSON and output file, we json and to report.json
 # as this is required to format the output for the post_comment.py script
